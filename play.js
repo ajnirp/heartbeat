@@ -52,7 +52,7 @@ var playState = {
     var onTheGround = player.body.touching.down || player.body.blocked.down;
     if (onTheGround) this.canDoubleJump = true;
       
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.UP, 5)) {
+    if (game.input.keyboard.downDuration(Phaser.Keyboard.UP, 5)) {
         if (this.canDoubleJump || onTheGround) {
             player.body.velocity.y = playerConsts.JUMP_SPEED;
             if (!onTheGround) this.canDoubleJump = false;
