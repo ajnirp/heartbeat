@@ -1,0 +1,35 @@
+1. 2d sidescroller puzzle platformer
+2. features
+    nothingness wave
+    illumination/darkness wave
+
+platformer features
+
+horizontal platforms
+walls
+    sloping platforms maybe?
+gravity
+ladders
+jumping
+    possibly double jumping?
+    maybe even wall jumping?
+enemies (later, after player mechanics are done)
+buttons (open doors, move platforms, etc)
+platforms that kill you when touched
+moving platforms
+    blinking platforms
+    platforms that break on touch
+collectibles
+
+ok basic platformer features decided
+now: which platform?
+phaser is fine for now. we both know its basics. lua is weird, haxe and cocos are too much initial overhead.
+
+features to work on (in order of priority)
+
+left/right movement
+single+double jumps + gravity
+non-ground horizontal platforms
+moving platforms
+breaking platforms
+
