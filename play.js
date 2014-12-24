@@ -10,8 +10,6 @@ var playState = {
   fpsText: '',
 
   create: function () {
-    console.log("play create");
-
     player = game.add.sprite(game.width/2 - 50, game.height/2 - 50, 'player');
     player.scale.setTo(0.1, 0.1);
     player.anchor.setTo(0.5, 0.5);
@@ -19,12 +17,19 @@ var playState = {
     game.physics.enable(player, Phaser.Physics.ARCADE);
     player.body.collideWorldBounds = true;
 
+    this.tiles = game.add.group();
+    this.tiles.enableBody = true;
+
+    game.add.image(game.width/2 + 60, game.height/2 + 60, 'tile', 0, this.tiles);
+    this.tiles.setAll('body.moves', false);
+
+    game.physics.arcade.collide(player, this.tiles);
+
     player.body.maxVelocity.setTo(playerConsts.MAX_SPEED, playerConsts.MAX_SPEED*10);
     game.physics.arcade.gravity.y = playerConsts.GRAVITY;
 
     this.canDoubleJump = true;
 
-    game.time.advancedTiming = true;
     this.fpsText = game.add.text(20, 20, '', { font: '16px Arial', fill: '#000000' });
 
     game.input.keyboard.addKeyCapture([
@@ -33,14 +38,11 @@ var playState = {
       Phaser.Keyboard.UP,
       Phaser.Keyboard.DOWN
     ]);
-    // this.minHeight = 1000;
   },
 
   // http://gamemechanicexplorer.com/#platformer-5
   update: function () {
     if (game.time.fps != 0) {
-      // if (player.body.position.y < this.minHeight) this.minHeight = player.body.position.y;
-      // this.fpsText.setText('height ' + Math.floor(this.minHeight));
       this.fpsText.setText(game.time.fps + ' FPS');
     }
 
