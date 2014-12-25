@@ -1,4 +1,5 @@
 var player;
+var tiles;
 
 var playerConsts = {
     MAX_SPEED: 800,
@@ -17,13 +18,15 @@ var playState = {
     game.physics.enable(player, Phaser.Physics.ARCADE);
     player.body.collideWorldBounds = true;
 
-    this.tiles = game.add.group();
-    this.tiles.enableBody = true;
+    tiles = game.add.group();
+    // tiles.enableBody = true;
 
-    game.add.image(game.width/2 + 60, game.height/2 + 60, 'tile', 0, this.tiles);
-    this.tiles.setAll('body.moves', false);
-
-    game.physics.arcade.collide(player, this.tiles);
+    // game.add.image(game.width/2 + 60, game.height/2 + 60, 'tile', 0, tiles);
+    tiles.setAll('body.moves', false);
+    this.tile = tiles.create(game.width/2, game.height/2 + 60, 'tile');
+    game.physics.enable(this.tile, Phaser.Physics.ARCADE);
+    this.tile.enableBody = true;
+    this.tile.body.moves = false;
 
     player.body.maxVelocity.setTo(playerConsts.MAX_SPEED, playerConsts.MAX_SPEED*10);
     game.physics.arcade.gravity.y = playerConsts.GRAVITY;
@@ -53,6 +56,8 @@ var playState = {
     } else {
       player.body.velocity.x = 0;
     }
+
+    game.physics.arcade.collide(player, this.tile);
 
     var onTheGround = player.body.touching.down || player.body.blocked.down;
     if (onTheGround) this.canDoubleJump = true;
